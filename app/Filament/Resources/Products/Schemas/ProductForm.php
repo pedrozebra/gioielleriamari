@@ -15,12 +15,9 @@ class ProductForm
     {
         return $schema
             ->schema([
-                // Contenitore principale a griglia (2/3 per i dati, 1/3 per le immagini)
-                Grid::make(3)
+                Grid::make(5)
                     ->schema([
-                        // Colonna principale che occupa 2 span
-                        Grid::make(1)->columnSpan(2)->schema([
-                            // Usiamo Fieldset per raggruppare visivamente i campi
+                        Grid::make(1)->columnSpan(3)->schema([
                             Fieldset::make('Informazioni Principali')
                                 ->schema([
                                     TextInput::make('name')
@@ -49,22 +46,28 @@ class ProductForm
                                         ->label('Meta Descrizione'),
                                 ]),
                         ]),
-
-                        // Colonna laterale che occupa 1 span
-                        Grid::make(1)->columnSpan(1)->schema([
+                        Grid::make(1)->columnSpan(2)->schema([
                             Fieldset::make('Immagini')
                                 ->schema([
                                     FileUpload::make('image_path')
                                         ->label('Immagine Principale')
                                         ->image()
-                                        ->directory('product-images'),
+                                        ->imageEditor()
+                                        ->imageCropAspectRatio('1:1')
+                                        ->imageResizeTargetWidth('1080')
+                                        ->imageResizeTargetHeight('1080')
+                                        ->disk('public')
+                                        ->directory('product-images')
+                                        ->required(),
 
                                     FileUpload::make('og_image_path')
                                         ->label('Immagine per Social (Opzionale)')
                                         ->helperText('Se non specificata, verrà usata l\'immagine principale.')
                                         ->image()
-                                        ->directory('product-og-images'),
-                                ]),
+                                        ->disk('public')
+                                        ->directory('product-og-images')
+                                        ->imageEditor(),
+                                ])->columns(1),
                         ]),
                     ]),
             ]);

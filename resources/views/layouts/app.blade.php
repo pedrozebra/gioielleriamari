@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title', 'Rossi Orologiaio')</title>
+    <title>@yield('title', 'Gioielleria Mari')</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -14,7 +14,7 @@
 <nav class="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Top">
         <div class="flex w-full items-center justify-between border-b border-gray-700 py-6 lg:border-none">
             <div class="flex items-center">
-                <a href="/" class="text-xl font-bold text-white">Rossi Orologiaio</a>
+                <a href="/" class="text-xl font-bold text-white">Gioielleria Mari</a>
             </div>
             <div class="ml-10 space-x-8">
                 <a href="/" class="text-base font-medium text-white hover:text-gray-300">Home</a>
@@ -45,7 +45,7 @@
                         <ul role="list" class="mt-6 space-y-4">
                             <li><a href="/" class="text-sm leading-6 text-gray-300 hover:text-white">Home</a></li>
                             <li><a href="/#servizi" class="text-sm leading-6 text-gray-300 hover:text-white">Servizi</a></li>
-                            <li><a href="#" class="text-sm leading-6 text-gray-300 hover:text-white">Prodotti</a></li>
+                            <li><a href="/prodotti" class="text-sm leading-6 text-gray-300 hover:text-white">Prodotti</a></li>
                         </ul>
                     </div>
                     <div class="mt-10 md:mt-0">
