@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Contatti - Rossi Orologiaio')
+@section('title', 'Gioielleria Mari - Contatti')
 
 @section('content')
 

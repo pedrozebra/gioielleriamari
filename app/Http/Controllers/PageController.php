@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -33,5 +34,13 @@ class PageController extends Controller
             'featuredProducts' => $featuredProducts,
             'services' => $services,
         ]);
+    }
+
+    public function show(Page $page)
+    {
+        if (!view()->exists('templates.' . $page->template)) {
+            abort(404);
+        }
+        return view('templates.' . $page->template, ['page' => $page]);
     }
 }
