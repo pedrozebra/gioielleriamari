@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Prodotti - Rossi Orologiaio')
+@section('title', 'Gioielleria Mari - Prodotti')
 
 @section('content')
 
@@ -8,9 +8,6 @@
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
             <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">La Nostra Collezione</h2>
             <p class="mt-4 text-lg text-gray-300">Una selezione di pezzi unici, scelti per la loro qualità, storia e bellezza senza tempo.</p>
-
-            <!-- in resources/views/prodotti.blade.php -->
-
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
 
                 @foreach ($products as $product)

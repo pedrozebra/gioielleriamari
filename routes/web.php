@@ -3,10 +3,7 @@
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'home']);
 
-Route::get('/chi-siamo', [PageController::class, 'whoWeAre'])->name('chi-siamo');
-Route::get('/contatti', [PageController::class, 'contatti'])->name('contatti');
-Route::get('/prodotti', [PageController::class, 'prodotti'])->name('prodotti');
+Route::get('/prodotti', [PageController::class, 'products'])->name('prodotti');
+Route::get('/{page:slug}', [PageController::class, 'show'])->name('page.show');
