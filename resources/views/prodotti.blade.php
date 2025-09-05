@@ -4,23 +4,30 @@
 
 @section('content')
 
-    <div class="bg-gray-900">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">La Nostra Collezione</h2>
-            <p class="mt-4 text-lg text-gray-300">Una selezione di pezzi unici, scelti per la loro qualità, storia e bellezza senza tempo.</p>
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+    <div class="bg-background py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-8 lg:px-16">
+            <div class="text-center">
+                <h1 class="font-serif text-4xl font-bold text-white sm:text-6xl">La Nostra Collezione</h1>
+                <p class="mt-4 text-lg leading-8 text-muted mx-auto max-w-2xl">
+                    Una selezione di pezzi unici, scelti per la loro qualità, storia e bellezza senza tempo.
+                </p>
+            </div>
 
+            <div class="mt-16 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-8">
                 @foreach ($products as $product)
-                    <div class="group">
-                        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-800 xl:aspect-h-8 xl:aspect-w-7">
-                            {{-- Usiamo l'asset helper per l'immagine --}}
-                            <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="h-full w-full object-cover object-center group-hover:opacity-75">
+                    <div class="group relative">
+                        <div class="aspect-square w-full overflow-hidden rounded-lg">
+                            <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
                         </div>
-                        <h3 class="mt-4 text-sm text-white">{{ $product->name }}</h3>
-                        <p class="mt-1 text-lg font-medium text-white">€{{ number_format($product->price, 2, ',', '.') }}</p>
+                        <h3 class="mt-4 text-base font-semibold text-white">
+                            <a href="#">
+                                <span aria-hidden="true" class="absolute inset-0"></span>
+                                {{ $product->name }}
+                            </a>
+                        </h3>
+                        <p class="mt-1 text-lg font-medium text-primary">€{{ number_format($product->price, 2, ',', '.') }}</p>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </div>

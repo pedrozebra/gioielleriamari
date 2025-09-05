@@ -4,73 +4,63 @@
 
 @section('content')
 
-    <div class="absolute top-0 left-0 w-full h-screen flex items-center justify-center">
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto-format&fit=crop');"></div>
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-        <div class="relative z-10 text-center px-4">
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-                L'Arte del Tempo, nelle Mani di un Esperto
+    <div class="relative min-h-screen flex items-center justify-center text-center px-4">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop');"></div>
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative z-10">
+            <h1 class="font-serif text-5xl md:text-8xl font-bold text-white tracking-tight">
+                L'Arte del Tempo
             </h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+            <p class="mt-4 text-lg md:text-xl text-muted max-w-2xl mx-auto">
                 Riparazioni, restauro e vendita di orologi di prestigio. La passione che segna ogni istante.
             </p>
-            <a href="#servizi" class="mt-8 inline-block bg-white text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-gray-200 transition duration-300">
-                Scopri i Nostri Servizi
+            <a href="#servizi" class="mt-8 inline-block bg-primary text-background font-bold py-3 px-12 rounded-full text-lg hover:bg-opacity-90 transition-transform hover:scale-105">
+                Scopri di più
             </a>
         </div>
     </div>
-    <div class="relative h-screen"></div>
-
-    <div id="servizi" class="bg-gray-900 py-20 sm:py-24">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl lg:text-center">
-                <h2 class="text-base font-semibold leading-7 text-gray-400">La Nostra Esperienza</h2>
-                <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Artigiani del Tempo</p>
-                <p class="mt-6 text-lg leading-8 text-gray-300">Dalla manutenzione ordinaria al restauro di pezzi storici, trattiamo ogni orologio con la massima cura e precisione.</p>
-            </div>
-            <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-
+    <div id="servizi" class="bg-background py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-8 lg:px-16 text-center">
+            <h2 class="font-serif text-4xl font-bold text-white">Artigiani del Tempo</h2>
+            <p class="mt-4 text-lg leading-8 text-muted mx-auto max-w-3xl">
+                Dalla manutenzione ordinaria al restauro di pezzi storici, trattiamo ogni orologio con la massima cura e precisione, preservando un'eredità di valore.
+            </p>
+            <div class="mt-16 border-t border-white/10 pt-16">
+                <dl class="grid grid-cols-1 gap-y-16 lg:grid-cols-3 text-left">
                     @foreach ($services as $service)
-                        <div class="flex flex-col">
-                            <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
-                                <div class="h-8 w-8 text-gray-400">
-                                    {!! $service->svg_icon !!} {{-- Usiamo {!! !!} per interpretare il codice HTML dell'SVG --}}
-                                </div>
+                        <div class="flex flex-col gap-y-3">
+                            <dt class="text-base font-semibold leading-7 text-white flex items-center gap-x-3">
+                                <span class="h-10 w-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                    {!! $service->svg_icon !!}
+                                </span>
                                 {{ $service->name }}
                             </dt>
-                            <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
-                                <p class="flex-auto">{{ $service->description }}</p>
-                            </dd>
+                            <dd class="text-base leading-7 text-muted">{{ $service->description }}</dd>
                         </div>
                     @endforeach
-
                 </dl>
             </div>
         </div>
     </div>
-    <div class="bg-gray-900">
-        <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-
-            @foreach ($featuredProducts as $product)
-                <div class="group relative">
-                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-800 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-                    </div>
-                    <div class="mt-4 flex justify-between">
-                        <div>
-                            <h3 class="text-sm text-white">
-                                <a href="#"> <span aria-hidden="true" class="absolute inset-0"></span>
-                                    {{ $product->name }}
-                                </a>
-                            </h3>
-                            {{-- Potremmo aggiungere una sotto-descrizione se volessimo --}}
+    <div class="bg-background py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-8 lg:px-16">
+            <h2 class="font-serif text-4xl font-bold text-white text-center">Le Nostre Proposte</h2>
+            <div class="mt-16 grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-8">
+                @foreach ($featuredProducts as $product)
+                    <div class="group relative">
+                        <div class="aspect-square w-full overflow-hidden rounded-lg">
+                            <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
                         </div>
-                        <p class="text-sm font-medium text-white">€{{ number_format($product->price, 2, ',', '.') }}</p>
+                        <h3 class="mt-4 text-base font-semibold text-white">
+                            <a href="#">
+                                <span aria-hidden="true" class="absolute inset-0"></span>
+                                {{ $product->name }}
+                            </a>
+                        </h3>
+                        <p class="mt-1 text-lg font-medium text-primary">€{{ number_format($product->price, 2, ',', '.') }}</p>
                     </div>
-                </div>
-            @endforeach
-
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection

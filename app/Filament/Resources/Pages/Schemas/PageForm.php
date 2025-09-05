@@ -21,6 +21,7 @@ class PageForm
                 ->options([
                     'standard' => 'Pagina Standard (solo testo)',
                     'chi-siamo' => 'Template "Chi Siamo" (con immagine)',
+                    'contatti' => 'Template contatti',
                 ])
                 ->required()
                 ->live(),

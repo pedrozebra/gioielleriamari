@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function whoWeAre()
-    {
-        return view('chi-siamo');
-    }
-
     public function contacts()
     {
         return view('contatti');
