@@ -18,6 +18,14 @@ class Product extends Model
         'meta_title',
         'meta_description',
         'og_image_path',
+        'is_published',
+        'is_featured',
+        'category'
+    ];
+
+    protected $casts = [
+        'is_published' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     /**

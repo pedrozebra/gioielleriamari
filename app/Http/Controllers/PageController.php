@@ -9,28 +9,27 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function whoWeAre()
-    {
-        return view('chi-siamo');
-    }
-
     public function contacts()
     {
         return view('contatti');
     }
-    public function products()
+    public function prodotti()
     {
-        $products = Product::latest()->get();
-
+        $products = Product::where('is_published', true)->latest()->get();
         return view('prodotti', ['products' => $products]);
     }
 
     public function home()
     {
-        $featuredProducts = Product::latest()->take(4)->get();
+        $featuredProducts = Product::where('is_published', true)
+        ->where('is_featured', true)
+        ->latest()
+            ->take(4)
+            ->get();
+
         $services = Service::latest()->take(3)->get();
 
-        return view('welcome', [
+        return view('home', [
             'featuredProducts' => $featuredProducts,
             'services' => $services,
         ]);
@@ -42,5 +41,12 @@ class PageController extends Controller
             abort(404);
         }
         return view('templates.' . $page->template, ['page' => $page]);
+    }
+
+    public function chiSiamo()
+    {
+        $page = Page::where('slug', 'chi-siamo')->firstOrFail();
+
+        return view('chi-siamo', ['page' => $page]);
     }
 }

@@ -41,7 +41,7 @@ class RepairsTable
                     ->isoDateTime('LL'),
             ])
             ->defaultSort('created_at', 'desc')
-            ->actions([EditAction::make()])
-            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
+            ->recordActions([EditAction::make()])
+            ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
     }
 }

@@ -1,34 +1,76 @@
 @extends('layouts.app')
+
 @section('title', $page->meta_title ?? $page->title)
 @section('meta-description', $page->meta_description)
 
 @section('content')
-    <div class="bg-gray-900 py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">La Nostra Storia</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-300">
-                    Fondata nel 1976 da Antonio Mari, la nostra bottega è nata da una profonda passione per l'alta orologeria. Quella che era iniziata come una piccola attività di riparazione è cresciuta fino a diventare un punto di riferimento per collezionisti e amanti degli orologi di prestigio.
-                </p>
-                <p class="mt-6 text-lg leading-8 text-gray-300">
-                    Specializzati nella riparazione di orologi antichi e moderni, effettuiamo anche riparazioni di oreficeria, incisioni e infilatura di collane.
-                </p>
-                <p class="mt-6 text-lg leading-8 text-gray-300">
-                    Possiamo affermare che i prezzi relativi alle nostre lavorazioni sono più bassi di quelli che normalmente vengono pagati in altri negozi, a parità di caratteristiche, in quanto non ci sono intermediari e le lavorazioni vengono fatte in sede.
+    <div class="relative py-16 bg-white overflow-hidden">
+        <div class="relative px-4 sm:px-6 lg:px-8">
+            <div class="max-w-prose mx-auto text-center">
+                <h1 class="text-4xl cormorant-title tracking-tight text-gray-900 sm:text-5xl">
+                    {{ $page->extra_content['hero_title'] ?? $page->title }}
+                </h1>
+                <p class="mt-4 font-inter text-gray-500">
+                    {!! $page->extra_content['hero_subtitle'] ?? '' !!}
                 </p>
             </div>
-            <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-                <div class="lg:pr-8 lg:pt-4">
-                    <div class="lg:max-w-lg">
-                        <h3 class="text-base font-semibold leading-7 text-gray-400">La Nostra Missione</h3>
-                        <p class="mt-2 text-2xl font-bold tracking-tight text-white">Precisione e Tradizione</p>
-                        <p class="mt-6 text-gray-300">
-                            La nostra missione è preservare l'arte e la scienza dell'orologeria. Ogni orologio che entra nel nostro laboratorio viene trattato non come un semplice oggetto, ma come un'eredità da custodire. Combiniamo tecniche artigianali tradizionali con le più moderne tecnologie per garantire risultati impeccabili.
-                        </p>
+            <div class="mt-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        @if($page->featured_image)
+                            <img
+                                src="{{ asset('storage/' . $page->featured_image) }}"
+                                alt="{{ $page->meta_title ?? $page->title }}"
+                                class="rounded-lg"
+                                loading="lazy"
+                            />
+                        @endif
+                    </div>
+                    <div>
+                        <h2 class="text-3xl cormorant-title text-gray-900 mb-6">
+                            {{ $page->extra_content['section_title'] ?? '' }}
+                        </h2>
+                        <div class="prose prose-lg text-gray-500 font-inter">
+                            <p>
+                                {!! $page->extra_content['section_content_block_one'] ?? '' !!}
+                            </p>
+                            <p class="mt-4">
+                                {!! $page->extra_content['section_content_block_two'] ?? '' !!}
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <img src="{{ asset('storage/' . $page->featured_image) }}" alt="{{ $page->title }}" class="w-full max-w-none rounded-2xl shadow-xl ring-1 ring-white/10 sm:w-[57rem] md:-ml-4 lg:-ml-0">
             </div>
+            <section class="mt-24 bg-gray-50 py-16 rounded-lg">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-3xl cormorant-title text-center text-gray-900 mb-12">
+                        I Nostri Valori
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="inline-block p-4 bg-white rounded-full shadow-sm">
+                                <i data-lucide="gem" class="h-8 w-8 text-purple-600"></i>
+                            </div>
+                            <h3 class="mt-4 text-xl cormorant-title text-gray-900">Eccellenza</h3>
+                            <p class="mt-2 font-inter text-gray-500">Ricerca costante della perfezione in ogni dettaglio.</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="inline-block p-4 bg-white rounded-full shadow-sm">
+                                <i data-lucide="heart" class="h-8 w-8 text-purple-600"></i>
+                            </div>
+                            <h3 class="mt-4 text-xl cormorant-title text-gray-900">Passione</h3>
+                            <p class="mt-2 font-inter text-gray-500">Amore per l'arte dell'orologeria e della gioielleria.</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="inline-block p-4 bg-white rounded-full shadow-sm">
+                                <i data-lucide="shield" class="h-8 w-8 text-purple-600"></i>
+                            </div>
+                            <h3 class="mt-4 text-xl cormorant-title text-gray-900">Affidabilità</h3>
+                            <p class="mt-2 font-inter text-gray-500">Garanzia di qualità e servizio impeccabile.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 @endsection
