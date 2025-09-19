@@ -45,9 +45,8 @@ class PageForm
                     FileUpload::make('featured_image')
                         ->label('Immagine in Evidenza')
                         ->image()
-                        ->disk('public') // <-- Specifica ESPLICITAMENTE di usare il disco pubblico
+                        ->disk('public')
                         ->directory('pages')
-                        // Aggiungi questa riga per accettare i formati moderni
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'])
                         ->visible(fn (Get $get): bool => $get('template') === 'chi-siamo'),
 
