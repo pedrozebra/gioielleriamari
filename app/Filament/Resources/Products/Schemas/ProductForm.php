@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Forms\Components\TextInput;
@@ -22,9 +24,18 @@ class ProductForm
                                 ->schema([
                                     TextInput::make('name')
                                         ->label('Nome Prodotto')
+                                        ->columnSpanFull()
                                         ->required()
                                         ->maxLength(255),
-
+                                    Select::make('category')
+                                        ->label('Categoria')
+                                        ->options([
+                                            'orologi' => 'Orologio',
+                                            'gioielli' => 'Gioiello',
+                                            'bracciali' => 'Bracciale',
+                                        ])
+                                        ->columnSpanFull()
+                                        ->required(),
                                     Textarea::make('description')
                                         ->label('Descrizione')
                                         ->required()
@@ -35,7 +46,7 @@ class ProductForm
                                         ->required()
                                         ->numeric()
                                         ->prefix('€'),
-                                ])->columns(2),
+                                ])->columns(3),
 
                             Fieldset::make('SEO & Open Graph')
                                 ->schema([
@@ -45,6 +56,17 @@ class ProductForm
                                     TextInput::make('meta_description')
                                         ->label('Meta Descrizione'),
                                 ]),
+                        ]),
+                        Grid::make(1)->columnSpan(2)->schema([
+                            Fieldset::make('Stato')
+                                ->schema([
+                                    Toggle::make('is_published')
+                                        ->label('Pubblicato')
+                                        ->helperText('Se attivo, il prodotto sarà visibile sul sito.'),
+                                    Toggle::make('is_featured')
+                                        ->label('In Vetrina')
+                                        ->helperText('Se attivo, il prodotto apparirà nella homepage.'),
+                                ])->columns(1)
                         ]),
                         Grid::make(1)->columnSpan(2)->schema([
                             Fieldset::make('Immagini')

@@ -1,61 +1,100 @@
 @extends('layouts.app')
 
-@section('title', 'Cerca Riparazione - Rossi Orologiaio')
+@section('title', 'Stato Riparazione')
+@section('description', 'Traccia lo stato della tua riparazione in tempo reale. Inserisci il codice per seguire ogni fase del processo.')
 
 @section('content')
-    <div class="bg-background py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-8 lg:px-16">
-            <div class="mx-auto max-w-2xl text-center">
-                <h1 class="font-serif text-4xl font-bold text-white sm:text-6xl">Stato Riparazione</h1>
-                <p class="mt-4 text-lg leading-8 text-muted">
-                    Inserisci il codice che ti è stato fornito sulla ricevuta per visualizzare lo stato di avanzamento del tuo ordine.
-                </p>
-            </div>
-
-            <form method="GET" action="{{ route('repair.search') }}" class="mt-12 mx-auto max-w-xl">
-                <div class="flex items-center gap-x-4">
-                    <input type="text" name="code" value="{{ $searchedCode }}" required
-                           class="min-w-0 flex-auto rounded-full border-0 bg-white/5 px-5 py-3 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-                           placeholder="Il tuo codice di riparazione...">
-                    <button type="submit"
-                            class="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-background shadow-sm
-               transition-all duration-300 ease-in-out hover:scale-105 hover:bg-primary/90 cursor-pointer">
-                        Cerca
-                    </button>
+    <main>
+        <section class="bg-gray-50 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Cerca la tua riparazione</h1>
+                    <p class="text-xl text-gray-600 leading-relaxed">
+                        Inserisci il codice che hai ricevuto in negozio per seguire in tempo reale lo stato del tuo ordine.
+                    </p>
                 </div>
-            </form>
+            </div>
+        </section>
 
-            @if ($searchedCode)
-                <div class="mt-16 mx-auto max-w-2xl border-t border-white/10 pt-10">
+        <section class="py-20 bg-white">
+            <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <form method="GET" action="{{ route('stato-riparazione') }}">
+                        <div class="mb-4">
+                            <label for="code" class="block text-sm font-medium text-gray-700 mb-2">
+                                Codice di Tracking
+                            </label>
+                            <input
+                                type="text"
+                                id="code"
+                                name="code"
+                                value="{{ $searchedCode }}"
+                                placeholder="es. ABC-123"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-gray-500 focus:border-gray-500 text-center text-lg font-mono uppercase"
+                                required
+                                oninput="this.value = this.value.toUpperCase()"
+                            />
+                        </div>
+                        <button type="submit" class="w-full hover:cursor-pointer bg-gray-900 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-gray-700 transition-colors">
+                            Cerca Riparazione
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        @if ($searchedCode)
+            <section class="pb-20 bg-white -mt-10">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     @if ($repair)
-                        <h3 class="font-serif text-2xl font-bold text-white">Risultati per: {{ $repair->customer_code }}</h3>
-                        <dl class="mt-6 space-y-4 text-base text-muted">
-                            <div class="flex gap-x-4 pt-4 border-t border-white/5">
-                                <dt class="w-32 flex-none font-semibold text-white">Cliente:</dt>
-                                <dd>{{ $repair->customer_name }}</dd>
+                        @php
+                            $statusColor = match($repair->status) {
+                                'Pronto per il ritiro' => 'success',
+                                'In lavorazione' => 'warning',
+                                'In attesa di pezzi' => 'info',
+                                'Consegnato' => 'secondary',
+                                default => 'primary',
+                            };
+                            $statusColorClasses = match($statusColor) {
+                                'success' => 'bg-green-100 text-green-800',
+                                'warning' => 'bg-yellow-100 text-yellow-800',
+                                'info' => 'bg-blue-100 text-blue-800',
+                                default => 'bg-gray-100 text-gray-800',
+                            };
+                        @endphp
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                            <div class="p-6 border-b border-gray-200">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-500">Riparazione #{{ $repair->customer_code }}</p>
+                                        <h3 class="text-xl font-semibold text-gray-900">{{ $repair->product_details }}</h3>
+                                    </div>
+                                    <div class="text-left sm:text-right mt-4 sm:mt-0">
+                                        <div class="text-sm text-gray-500">Data consegna</div>
+                                        <div class="text-lg font-semibold text-gray-700">{{ \Carbon\Carbon::parse($repair->delivery_date)->format('d/m/Y') }}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex gap-x-4 pt-4 border-t border-white/5">
-                                <dt class="w-32 flex-none font-semibold text-white">Prodotto:</dt>
-                                <dd>{{ $repair->product_details }}</dd>
-                            </div>
-                            <div class="flex items-center gap-x-4 pt-4 border-t border-white/5">
-                                <dt class="w-32 flex-none font-semibold text-white">Stato:</dt>
-                                <dd>
-                                <span class="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
+                            <div class="p-6 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-lg font-semibold text-gray-900">Stato Attuale</h4>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium {{ $statusColorClasses }}">
                                     {{ $repair->status }}
                                 </span>
-                                </dd>
+                                </div>
+                                <p class="mt-2 text-gray-600">
+                                    Data presunta di completamento: <strong>{{ \Carbon\Carbon::parse($repair->estimated_completion_date)->format('d/m/Y') }}</strong>
+                                </p>
                             </div>
-                            <div class="flex gap-x-4 pt-4 border-t border-white/5">
-                                <dt class="w-32 flex-none font-semibold text-white">Data presunta:</dt>
-                                <dd>{{ \Carbon\Carbon::parse($repair->estimated_completion_date)->format('d/m/Y') }}</dd>
-                            </div>
-                        </dl>
+                        </div>
                     @else
-                        <p class="text-lg text-primary text-center">Nessuna riparazione trovata con il codice "{{ $searchedCode }}".</p>
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+                            <h3 class="text-lg font-semibold text-red-900 mb-2">Codice non trovato</h3>
+                            <p class="text-red-700">Verifica di aver inserito il codice corretto o contattaci.</p>
+                        </div>
                     @endif
                 </div>
-            @endif
-        </div>
-    </div>
+            </section>
+        @endif
+    </main>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,5 +25,12 @@ class Repair extends Model
         static::creating(function (Repair $repair) {
             $repair->internal_tracking_code = 'REP-' . date('Ym') . '-' . strtoupper(uniqid());
         });
+    }
+
+    protected function customerCode(): Attribute
+    {
+        return Attribute::make(
+            set: fn (?string $value) => $value ? strtoupper($value) : null,
+        );
     }
 }

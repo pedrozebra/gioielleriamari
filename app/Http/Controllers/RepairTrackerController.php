@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class RepairTrackerController extends Controller
 {
-    /**
-     * Mostra la pagina di ricerca e i risultati.
-     */
     public function index(Request $request)
     {
         $repair = null;

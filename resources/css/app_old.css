@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+    --color-background: #0a0a0a;       /* Sfondo quasi nero */
+    --color-second-tone: #363636;
+    --color-third-tone: #363636;
+    --color-foreground: #e8e8e8;       /* Bianco morbido */
+    --color-muted: #888888;            /* Grigio testo secondario */
+    --color-primary: #a37f4a;          /* Accento oro/bronzo */
+    --color-dark-surface: #1a1a1a;     /* Superficie nera leggermente più chiara */
+
+
+    --font-family-sans: 'Inter', sans-serif;
+    --font-family-serif: 'Cormorant Garamond', serif;
+    --font-family-cursive: 'Tangerine', cursive;
+}
+
+/* Mappatura delle variabili CSS nei layer di base Tailwind */
+@layer base {
+    :root {
+        color-scheme: dark;
+
+        --tw-color-background: var(--color-background);
+        --tw-color-foreground: var(--color-foreground);
+        --tw-color-muted: var(--color-muted);
+        --tw-color-primary: var(--color-primary);
+        --tw-color-dark-surface: var(--color-dark-surface);
+
+        --tw-font-sans: var(--font-family-sans);
+        --tw-font-serif: var(--font-family-serif);
+        --tw-font-cursive: var(--font-family-cursive);
+    }
+
+    /* Font family personalizzate */
+    .font-sans {
+        font-family: var(--tw-font-sans);
+    }
+
+    .font-serif {
+        font-family: var(--tw-font-serif);
+    }
+
+    .font-cursive {
+        font-family: var(--tw-font-cursive);
+    }
+
+    /* Colori personalizzati (esempi) */
+    .text-primary {
+        color: var(--tw-color-primary);
+    }
+
+    .bg-primary {
+        background-color: var(--tw-color-primary);
+    }
+
+    .text-muted {
+        color: var(--tw-color-muted);
+    }
+
+    .bg-dark-surface {
+        background-color: var(--tw-color-dark-surface);
+    }
+
+    .bg-background {
+        background-color: var(--tw-color-background);
+    }
+
+    .text-foreground {
+        color: var(--tw-color-foreground);
+    }
+}
